@@ -1,0 +1,46 @@
+
+### Test Client API 
+
+POST http://localhost:5000/api/clients/register
+Content-Type: application/json
+
+{
+  "nom": "Ahmed",
+  "permis": "AB12ssdc6",
+  "email": "ahmed@example.com",
+  "age": 30,
+  "contact": "0605623456",
+  "password": "mffddfghjjjjh"
+}
+
+####
+POST http://localhost:5000/api/clients/login
+Content-Type: application/json
+
+{
+  "email": "ali@example.com",
+  "password": "monmotdepasse"
+}
+
+
+####  Test agence API
+
+POST http://localhost:5000/api/agences/register
+Content-Type: application/json
+
+{
+  "nom": "Agence Alpha",
+  "adresse": "123 rue de Paris",
+  "contact": "0601020304",
+  "email": "agence@example.com",
+  "password": "monmotdepasse"
+}
+
+###
+POST http://localhost:5000/api/agences/login
+Content-Type: application/json
+
+{
+  "email": "agence@example.com",
+  "password": "monmotdepasse"
+}

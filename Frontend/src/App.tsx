@@ -1,19 +1,26 @@
-// src/App.jsx
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// App.tsx
+import { Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
 import BookingPage from './pages/booking_page';
-import LoginPage from './pages/login_page';
-import AgencyProfile from './pages/agency_profile';
+import LoginClient from './pages/Login_client';
+import LoginAgence from './pages/Login_agence';
+import AgenceProfile from './pages/Agence_profile';
+import ClientProfile from './pages/Client_profile';
 
-const App = () => {
+export default function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/booking" element={<BookingPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/agence_profile" element={<AgencyProfile />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/booking_page" element={<BookingPage />} />
+      <Route path="/login_client" element={<LoginClient />} />
+      <Route path="/login_agence" element={<LoginAgence />} />
+      <Route path="/agence_profile" element={<AgenceProfile />} />
+      <Route path="/client_profile" element={<ClientProfile />} />
+      
+    </Routes>
   );
-};
+}
 
-export default App;
+

@@ -1,15 +1,27 @@
 import React, { useState } from "react";
 
-const ProfileSection: React.FC = () => {
-  const [agencyName, setAgencyName] = useState<string>("Agence XYZ");
-  const [email, setEmail] = useState<string>("contact@xyz.com");
-  const [phone, setPhone] = useState<string>("+33 123 456 789");
-  const [address, setAddress] = useState<string>("123 Rue de Paris, Paris, France");
-  const [description, setDescription] = useState<string>("Location de voitures premium avec service personnalisé.");
+interface Agency {
+  name: string;
+  email: string;
+  contact: string; // Changement de "phone" à "contact"
+  address: string;
+  description: string;
+}
+
+interface ProfileSectionProps {
+  agency: Agency;
+}
+
+const ProfileSection: React.FC<ProfileSectionProps> = ({ agency }) => {
+  const [agencyName, setAgencyName] = useState<string>(agency.name);
+  const [email, setEmail] = useState<string>(agency.email);
+  const [contact, setContact] = useState<string>(agency.contact); // Utilisation de "contact" au lieu de "phone"
+  const [address, setAddress] = useState<string>(agency.address);
+  const [description, setDescription] = useState<string>(agency.description);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const handleSave = (): void => {
-    console.log("Sauvegarde des infos :", { agencyName, email, phone, address, description });
+    console.log("Sauvegarde des infos :", { agencyName, email, contact, address, description });
   };
 
   return (
@@ -39,11 +51,11 @@ const ProfileSection: React.FC = () => {
       </div>
 
       <div className="mb-4">
-        <label className="block font-medium mb-1">Numéro de téléphone :</label>
+        <label className="block font-medium mb-1">Contact :</label>
         <input
           type="text"
-          value={phone}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPhone(e.target.value)}
+          value={contact}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setContact(e.target.value)} // Utilisation de "contact"
           className="w-full p-2 border border-gray-300 rounded"
           disabled={!isEditing}
         />
@@ -100,4 +112,4 @@ const ProfileSection: React.FC = () => {
   );
 };
 
-export default ProfileSection;
+export default ProfileSection; // Assure-toi d'utiliser l'exportation par défaut

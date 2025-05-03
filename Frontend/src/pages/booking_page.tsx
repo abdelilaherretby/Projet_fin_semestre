@@ -1,12 +1,12 @@
 "use client"; // Mark the file as a client component
 
 import React, { useState } from 'react';
-import DriverDetails from "../components/Booking/DriverDetails";
+import DriverDetails from '../components/Booking/DriverDetails';
 import BookingHeader from '../components/Booking/Bookingheader' ;
 import BillingAddress from '../components/Booking/BillingAdress';
 import BookingFooter from '../components/Booking/BookingFooter';
 import BookingCar from '../components/Booking/BookingCar';
-import car1 from '../assets/car1.png';
+import car1 from "../../public/images/bmwserie1.png"
 const BookingForm = () => {
   const [formData, setFormData] = useState({
     company: '',
