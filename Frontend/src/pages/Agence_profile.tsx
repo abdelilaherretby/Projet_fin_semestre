@@ -12,21 +12,30 @@ export default function AgenceProfile() {
   const [agencyData, setAgencyData] = useState<any>(null); // agencyData est initialisé à null
 
   useEffect(() => {
-    // Récupère les données du localStorage
-    const user = localStorage.getItem('user');
+    const user = localStorage.getItem("user");
+    console.log("User from localStorage:", user);
+  
     if (user) {
       const parsed = JSON.parse(user);
-      if (parsed?.type === 'agence') {
-        setAgencyData({
-          name: parsed.nom, // Nom de l'agence
-          email: parsed.email || 'contact@xyz.com', // Email de l'agence
-          contact: parsed.contact || '+33 123 456 789', // Contact (anciennement téléphone)
-          address: parsed.adresse || '123 Rue de Paris, Paris, France', // Adresse
-          description: parsed.description || 'Location de voitures premium avec service personnalisé.' // Description par défaut
-        });
+      console.log("Parsed user:", parsed);
+  
+      if (parsed?.type === "agence" && parsed?.id_agence) {
+        fetch(`http://localhost:5000/api/agences/profile/${parsed.id_agence}`)
+          .then((res) => {
+            console.log("Raw response:", res);
+            return res.json();
+          })
+          .then((data) => {
+            console.log("Fetched agency data:", data);
+            setAgencyData(data);
+          })
+          .catch((err) => {
+            console.error("Erreur lors de la récupération de l'agence :", err);
+          });
       }
     }
   }, []);
+  
   
 
   const handleSectionClick = (section: string) => {

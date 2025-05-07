@@ -1,28 +1,79 @@
 import React, { useState } from "react";
 
 interface Agency {
+  id_agence: number;
   name: string;
   email: string;
-  contact: string; // Changement de "phone" à "contact"
+  telephone: string; // Changement de "phone" à "contact"
   address: string;
   description: string;
 }
 
 interface ProfileSectionProps {
   agency: Agency;
+ 
 }
 
 const ProfileSection: React.FC<ProfileSectionProps> = ({ agency }) => {
   const [agencyName, setAgencyName] = useState<string>(agency.name);
   const [email, setEmail] = useState<string>(agency.email);
-  const [contact, setContact] = useState<string>(agency.contact); // Utilisation de "contact" au lieu de "phone"
+  const [telephone, setTelephone] = useState<string>(agency.telephone); // Utilisation de "contact" au lieu de "phone"
   const [address, setAddress] = useState<string>(agency.address);
   const [description, setDescription] = useState<string>(agency.description);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
-  const handleSave = (): void => {
-    console.log("Sauvegarde des infos :", { agencyName, email, contact, address, description });
+  const handleSave = async (): Promise<void> => {
+    console.log("Payload envoyé :", {
+      agencyName,
+      email,
+      telephone,
+      address,
+      description,
+    });
+  
+    try {
+      const response = await fetch(`http://localhost:5000/api/agences/profile/${agency.id_agence}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nom: agencyName,
+          email,
+          telephone,
+          adresse: address,
+          description
+        }),
+      });
+  
+      // Vérification si la réponse est bien JSON
+      let data;
+      if (response.ok) {
+        // Essayer de récupérer la réponse JSON uniquement si la réponse est ok
+        try {
+          data = await response.json();
+        } catch (jsonError) {
+          console.error("Réponse non-JSON reçue :", jsonError);
+          return;
+        }
+  
+        console.log('Les informations ont été mises à jour avec succès');
+        setIsEditing(false); // Désactive le mode édition après la sauvegarde
+      } else {
+        // Si la réponse n'est pas ok, afficher le message d'erreur
+        const errorText = await response.text();  // Lire la réponse en texte si la réponse est erreur
+        console.error('Erreur lors de la mise à jour :', errorText);
+      }
+    } catch (error) {
+      console.error('Erreur de sauvegarde', error);
+    }
   };
+  
+  
+  
+  
+  
+  
 
   return (
     <section className="my-6 p-4 bg-white shadow-lg rounded-lg">
@@ -54,8 +105,8 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({ agency }) => {
         <label className="block font-medium mb-1">Contact :</label>
         <input
           type="text"
-          value={contact}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setContact(e.target.value)} // Utilisation de "contact"
+          value={telephone}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTelephone(e.target.value)} // Utilisation de "contact"
           className="w-full p-2 border border-gray-300 rounded"
           disabled={!isEditing}
         />
