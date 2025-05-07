@@ -26,9 +26,17 @@ export default function ClientAuthPage() {
         // 🔐 Sauvegarde du token
         localStorage.setItem('token', data.token);
       
-        // ✅ Sauvegarde dans 'user' au lieu de juste 'client'
-        localStorage.setItem('user', JSON.stringify({ nom: data.client.nom, type: 'client' }));
-      
+       // ✅ Sauvegarde dans 'user' avec toutes les infos utiles
+        localStorage.setItem('user', JSON.stringify({
+          id: data.client.id,
+          nom: data.client.nom,
+          email: data.client.email,
+          permis: data.client.permis,
+          age: data.client.age,
+          contact: data.client.contact,
+          type: 'client'
+        }));
+        
         // 🧭 Redirection
         window.location.href = '/client_profile';
       } else {

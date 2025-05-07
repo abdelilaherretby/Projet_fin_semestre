@@ -1,4 +1,4 @@
-const { createClient, getClientByEmail } = require('../Models/clientmodel');
+const { createClient, getClientByEmail,updateClient} = require('../Models/clientmodel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -59,7 +59,7 @@ exports.login = async (req, res) => {
     const token = jwt.sign(
       { id: client.id, email: client.email },
       SECRET_KEY,
-      { expiresIn: '2h' } // Tu peux ajuster la durée
+      { expiresIn: '5m' } // Tu peux ajuster la durée
     );
 
     // Retourne le client connecté avec son token
@@ -77,3 +77,32 @@ exports.login = async (req, res) => {
     });
   });
 };
+
+
+
+exports.updateProfile = async (req, res) => {
+  // ID client récupéré via le middleware d'authentification
+  const clientId = req.client.id; 
+  // Données du profil récupérées via le corps de la requête
+  const { nom, email, permis, age, contact } = req.body;
+
+  try {
+    // Simuler un délai (1s) pour l'effet de loading
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    const updatedData = { nom, email, permis, age, contact };
+
+    // appeler la fonction de mise à jour du modèle
+    const updatedClient = await updateClient(clientId, updatedData);
+
+    // Répondre avec le message + données mises à jour
+    res.status(200).json({
+      message: 'Profil mis à jour avec succès',
+      updatedData: updatedClient,
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Erreur serveur', error });
+  }
+};
+
+

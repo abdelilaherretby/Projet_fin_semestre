@@ -7,6 +7,7 @@ import ReservationsSection from "../components/Client_profile/ReservationsSectio
 import ReservationHistorySection from "../components/Client_profile/ReservationHistorySection";
 
 interface Client {
+  id: number;
   name: string;
   email: string;
   contact: string;
@@ -24,6 +25,7 @@ export default function ClientProfile() {
       const parsed = JSON.parse(user);
       if (parsed?.type === "client") {
         setClientData({
+          id : parsed.id,
           name: parsed.nom || "Nom inconnu",
           email: parsed.email || "contact@exemple.com",
           contact: parsed.contact || "+33 000 000 000",

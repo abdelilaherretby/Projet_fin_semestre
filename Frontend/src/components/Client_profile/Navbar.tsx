@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { FaUserAlt, FaUser, FaCalendarCheck, FaHistory } from "react-icons/fa";
+import {FaUser, FaCalendarCheck, FaHistory } from "react-icons/fa";
 import { IoMdMenu } from "react-icons/io";
 import { MdClose } from "react-icons/md";  // Importer MdClose
+import Deconnexion from "./Deconnexion"; 
 
 interface NavbarProps {
   clientName: string;
@@ -21,6 +22,17 @@ const Navbar: React.FC<NavbarProps> = ({ clientName, handleSectionClick }) => {
     handleSectionClick(value);
     setMenuOpen(false); // Ferme le menu mobile après clic
   };
+
+
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    return hour < 18 ? "Bonjour" : "Bonsoir";
+  };
+  
+  const [showMenu, setShowMenu] = useState(false);
+
+  const toggleMenu = () => setShowMenu(!showMenu);
+
 
   return (
     <nav className="w-full bg-white text-black flex justify-between items-center px-8 py-6 shadow-lg fixed top-4 left-0 z-50">
@@ -53,10 +65,24 @@ const Navbar: React.FC<NavbarProps> = ({ clientName, handleSectionClick }) => {
         </div>
       </div>
 
-      {/* Client name */}
-      <div className="flex items-center gap-2 text-lg font-semibold">
-        <FaUserAlt className="text-xl text-blue-500" />
-        <span>Bonjour {clientName}</span>
+      <div className="relative">
+          {/* Client name */}
+          <div className="flex items-center gap-2 text-lg font-semibold ">
+            <div
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-blue-500 text-white text-xl cursor-pointer"
+              onClick={toggleMenu}
+            >
+              {clientName?.charAt(0).toUpperCase()}
+            </div>
+            <span>{getGreeting()}, {clientName}</span>
+          </div>
+
+          {/* Menu Déconnexion */}
+          {showMenu && (
+            <div className="absolute mt-1 right-0.5  z-50">
+              <Deconnexion  />
+            </div>
+          )}
       </div>
 
       {/* Mobile dropdown menu */}

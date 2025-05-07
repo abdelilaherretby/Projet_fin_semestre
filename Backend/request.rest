@@ -18,9 +18,46 @@ POST http://localhost:5000/api/clients/login
 Content-Type: application/json
 
 {
-  "email": "ali@example.com",
-  "password": "monmotdepasse"
+  "email": "sara@example.com",
+  "password": "motdepasse2"
 }
+
+###
+PUT http://localhost:5000/api/clients/update-profile
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAsImVtYWlsIjoic2FyYUBleGFtcGxlLmNvbSIsImlhdCI6MTc0NjU1MzE0NiwiZXhwIjoxNzQ2NTUzNDQ2fQ.F3K6PVZaBasA70Hb1gonvMBqb_12aZ32JgyuD_L60WA
+
+{
+  "nom": "hakim",
+  "email": "hakim@gmail.com",
+  "permis": "XYZ98",
+  "age": 67,
+  "contact": "060000000"
+}
+###
+GET  http://localhost:5000/api/reservations/mes-reservations
+ Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAsImVtYWlsIjoic2FyYUBleGFtcGxlLmNvbSIsImlhdCI6MTc0NjYyNzY4NCwiZXhwIjoxNzQ2NjI3OTg0fQ.ovbIqkDKkEjuOz_kCWqqgHwdnz79Yx69jjeEIGxsw0I
+###
+
+PUT http://localhost:5000/api/reservations/6/status
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAsImVtYWlsIjoic2FyYUBleGFtcGxlLmNvbSIsImlhdCI6MTc0NjYzMzkzNiwiZXhwIjoxNzQ2NjM0MjM2fQ.JVBuPDX2rh4jvtK7mAZ6ECoIdqhDdAIdLpXcwHA5vRY
+
+{
+  "annulee": true
+}
+
+#####
+GET  http://localhost:5000/api/reservations-historique/mes-historiques
+ Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAsImVtYWlsIjoic2FyYUBleGFtcGxlLmNvbSIsImlhdCI6MTc0NjYyMTkyMSwiZXhwIjoxNzQ2NjIyMjIxfQ.KvkLB9p1oV4_d0fvFqSdKMXrSE-qWRVSKxNFanMdiwY
+
+######
+DELETE   http://localhost:5000/api/reservations-historique/delete-historique/13
+ Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAsImVtYWlsIjoic2FyYUBleGFtcGxlLmNvbSIsImlhdCI6MTc0NjYyMjk2MywiZXhwIjoxNzQ2NjIzMjYzfQ.OuTnK63OFvVakiulzpfB2UiZc096Q2lPiWPfSM43WHw
+
 
 
 ####  Test agence API
@@ -44,3 +81,5 @@ Content-Type: application/json
   "email": "agence@example.com",
   "password": "monmotdepasse"
 }
+
+
